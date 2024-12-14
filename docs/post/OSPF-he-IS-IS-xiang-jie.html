@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://app.yto88.cn/img/png/Settings1.png"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="https://issuu.com/xiuxiuebook/docs/ospf___is-is________________________8adbd1f9194bf3
+
+
+
+
+第1章 链路状态路由协议之由来 1
+1.1 星际网络 1
+1.2 ARPANET 4
+1.3 网络工作组 10
+1.4 互联网的诞生 12
+1.5 ARPANET内的路由选择 16
+1.6 欧洲的发展 23
+1.7 独立且平等 25
+1.8 总结 28
+第2章 链路状态路由协议基本知识 29
+2.1 矢量(vector)协议基础 29
+2.1.1 矢量协议的收敛 31
+2.1.2 矢量协议的共性 33
+2.1.3 路由环路 34
+2.2 链路状态的基本概念 44
+2.2.1 邻接关系 47
+2.2.2 泛洪 50
+2.2.3 路由宣告消息的头部 56
+2.2.4 数据库同步 57
+2.2.5 SPF计算 58
+2.2.6 区域 68
+2.3 复习题 69
+第3章 消息类型 71
+3.1 术语比较 71
+3.2 消息封装方式 73
+3.3 消息结构 76
+3.4 消息类型 78
+3.5 LSA和LSP 80
+3.6 子网无关和子网相关功能 82
+3.6.1 子网相关功能 83
+3.6.2 子网无关功能 84
+3.7 复习题 86
+第4章 寻址、邻居发现和邻接关系 87
+4.1 路由器和区域ID 87
+4.1.1 OSPF Router-ID 87
+4.1.2 故障排除：OSPF RID冲突 89
+4.1.3 OSPF区域ID 92
+4.1.4 IS-IS System-ID和区域ID 94
+4.2 Hello协议 96
+4.2.1 OSPF Hello协议基础知识 97
+4.2.2 IS-IS Hello协议基础知识 99
+4.2.3 IS-IS动态主机名交换 106
+4.2.4 OSPF域名查询 107
+4.3 邻接关系 108
+4.3.1 OSPF邻接关系 108
+4.3.2 IS-IS邻接关系 111
+4.4 指定路由器 118
+4.4.1 OSPF指定路由器 121
+4.4.2 IS-IS指定中间系统 125
+4.5 介质类型 127
+4.5.1 OSPF网络类型 127
+4.5.2 IS-IS网络类型 132
+4.6 接口数据库 134
+4.6.1 OSPF接口数据结构 134
+4.6.2 OSPF接口状态 137
+4.6.3 IS-IS接口数据结构 141
+4.7 复习题 143
+第5章 泛洪 145
+5.1 泛洪组件 145
+5.1.1 OSPF泛洪 146
+5.1.2 IS-IS泛洪 155
+5.2 区域类型和路由器类型 163
+5.2.1 OSPF区域和路由器类型 163
+5.2.2 IS-IS区域和路由器类型 166
+5.3 度量类型 168
+5.3.1 OSPF路由度量值 168
+5.3.2 IS-IS路由度量值 171
+5.4 LSA的基本类型 173
+5.4.1 路由器LSA 173
+5.4.2 网络LSA 176
+5.4.3 网络汇总LSA 177
+5.4.4 ASBR汇总LSA 179
+5.4.5 外部LSA 180
+5.5 TLV结构的基本类型 184
+5.5.1 区域地址TLV 185
+5.5.2 IS邻居TLV 185
+5.5.3 所支持的(网络层)协议TLV 187
+5.5.4 接口(所配置的)IP地址TLV 187
+5.5.5 IP内部可达性信息TLV 188
+5.5.6 IP外部可达性信息TLV 189
+5.5.7 经过扩展的IS可达性(信息)TLV 190
+5.5.8 经过扩展的IP可达性(信息)TLV 191
+5.6 复习题 192
+第6章 链路状态数据库同步 195
+6.1 OSPF数据库同步 196
+6.1.1 数据库同步过程中所使用的OSPF协议数据包 196
+6.1.2 选项字段 200
+6.1.3 OSPF邻居数据结构 202
+6.1.4 OSPF路由器在数据库交换和泛洪期间用到的LSA列表 204
+6.1.5 管理数据库的交换：主(Master)/从(Slave)路由器机制 204
+6.1.6 OSPF邻居状态机 207
+6.1.7 OSPF排障方法1：学会解读路由器生成的日志记录及Debug输出信息 213
+6.1.8 OSPF排障方法2：学会比较(不同路由器的)LS数据库 220
+6.2 IS-IS数据库同步 225
+6.2.1 数据库同步过程中所使用的IS-IS PDU 226
+6.2.2 设置路由消息标记和序列号消息标记 229
+6.2.3 点到点网络环境中的LS数据库同步 230
+6.2.4 广播网络环境中的LS数据库同步 232
+6.2.5 IS-IS排障方法1：学会解读路由器生成的日志记录及Debug输出信息 234
+6.2.6 IS-IS排障方法2：学会比较不同IS-IS路由器的LS数据库 238
+6.3 复习题 239
+第7章 区域设计 241
+7.1 区域的可扩展性 242
+7.2 区域的可靠性 244
+7.3 OSPF区域 246
+7.3.1 骨干区域和非骨干区域 246
+7.3.2 影响OSPF区域“伸缩自如”的因素 250
+7.3.3 外部路由前缀和OSPF路由进程域的规模 253
+7.3.4 stub区域 256
+7.3.5 Totally stub区域 259
+7.3.6 Not-So-Stubby区域 260
+7.3.7 地址汇总 263
+7.3.8 虚链路 265
+7.4 IS-IS区域 271
+7.4.1 骨干区域和非骨干区域 271
+7.4.2 影响IS-IS区域“伸缩自如”的因素 275
+7.4.3 IS-IS L1区域内默认的路由选择规则 279
+7.4.4 L1/L2路由器冗余 284
+7.4.5 再谈地址汇总 285
+7.4.6 L2到L1的路由泄露 286
+7.4.7 将外部IP前缀重分发进IS-IS 291
+7.4.8 在一台路由器上配置多个AID(多区域ID) 293
+7.4.9 IS-IS虚链路 293
+7.4.10 BGP和IGP区域设计 294
+7.5 复习题 295
+第8章 伸缩自如 297
+8.1 对SPF算法的改进 297
+8.1.1 等开销多路径 298
+8.1.2 伪节点和ECMP 305
+8.1.3 增量SPF计算 309
+8.1.4 部分路由计算 311
+8.1.5 SPF延迟 312
+8.2 改进路由器泛洪LSA/LSP的机制 314
+8.2.1 控制路由器发送LSA/LSP的节奏(Transmit Pacing) 315
+8.2.2 控制路由器重传LSA/LSP的节奏(Retransmit Pacing) 318
+8.2.3 Mesh Groups 319
+8.2.4 按需电路和泛洪抑制 323
+8.3 分片 327
+8.4 过载(Overloading) 332
+8.5 复习题 336
+第9章 安全性和可靠性 339
+9.1 路由协议的漏洞 339
+9.1.1 恶意危害 340
+9.1.2 非恶意危害 342
+9.2 安全特性与可靠特性 343
+9.2.1 固有安全特性 343
+9.2.2 认证 344
+9.2.3 校验和 354
+9.2.4 优雅重启动(Graceful Restart) 356
+9.2.5 双向转发检测 369
+9.3 网络的安全性和可靠性设计 373
+9.3.1 冗余性 374
+9.3.2 路由进程域边界防护 377
+9.3.3 路由器防护 378
+9.4 与保障网络安全性和可靠性有关的运维经验 383
+9.4.1 配置管理 384
+9.4.2 变更管理 385
+9.4.3 仿真网络环境(The Network Lab) 390
+9.5 复习题 391
+第10章 可扩展能力 393
+10.1 扩展OSPF 393
+10.1.1 OSPF面临的可扩展性问题 394
+10.1.2 不透明LSA(Opaque LSA) 395
+10.1.3 不透明LSA(Opaque LSA) 398
+10.2 扩展IS-IS 400
+10.2.1 IS-IS在可扩展性方面的优势 400
+10.2.2 (本机)所支持的协议TLV 401
+10.3 路由标记 401
+10.4 复习题 403
+第11章 为支持MPLS流量工程所添加的扩展功能 405
+11.1 MPLS：概述 406
+11.1.1 标签和标签交换 406
+11.1.2 转发等价类和标签绑定 409
+11.1.3 标签(绑定信息的)分发 410
+11.1.4 MPLS头部 411
+11.2 流量工程：概述 413
+11.2.1 TE链路参数 414
+11.2.2 受约束的最短路径优先算法 416
+11.3 为支持流量工程针对OSPF做出的改进 419
+11.4 为支持流量工程而针对IS-IS做出的改进 422
+11.5 复习题 423
+第12章 为支持IPv6所添加的扩展功能 425
+12.1 IPv6：概述 425
+12.1.1 IPv6的特征和功能 427
+12.1.2 IPv6地址的格式 428
+12.1.3 IPv6地址的表示方法 430
+12.1.4 邻居发现协议 431
+12.1.5 无状态地址自动配置 433
+12.1.6 IPv6包头格式 435
+12.1.7 扩展包头 437
+12.2 OSPFv3 439
+12.2.1 OSPF执行IPv4和IPv6路由选择的兼容性 440
+12.2.2 OSPFv2和OSPFv3之间的区别 441
+12.2.3 OSPFv3 LSA 442
+12.2.4 选项字段 453
+12.2.5 OSPFv3协议数据包 454
+12.2.6 未来对OSPFv3的改进 456
+12.3 为支持IPv6路由选择针对IS-IS做出的改进 457
+12.4 复习题 459
+第13章 为支持多拓扑路由选择所做出的改进 461
+13.1 为支持多拓扑路由选择对OSPF所做的改进 462
+13.1.1 MT-OSPF运作规程 463
+13.1.2 MT-OSPF LSA 464
+13.1.3 链路排除 466
+13.2 为支持多拓扑路由选择对IS-IS所做的改进 467
+13.2.1 链路排除 467
+13.2.2 MT-ISIS TLV 469
+13.3 复习题 471
+后记 链路状态路由协议之未来 473
+
+来自 <https://book.douban.com/subject/26709271/> 
+
+
+。">
+<meta property="og:title" content="OSPF和IS-IS详解">
+<meta property="og:description" content="https://issuu.com/xiuxiuebook/docs/ospf___is-is________________________8adbd1f9194bf3
+
+
+
+
+第1章 链路状态路由协议之由来 1
+1.1 星际网络 1
+1.2 ARPANET 4
+1.3 网络工作组 10
+1.4 互联网的诞生 12
+1.5 ARPANET内的路由选择 16
+1.6 欧洲的发展 23
+1.7 独立且平等 25
+1.8 总结 28
+第2章 链路状态路由协议基本知识 29
+2.1 矢量(vector)协议基础 29
+2.1.1 矢量协议的收敛 31
+2.1.2 矢量协议的共性 33
+2.1.3 路由环路 34
+2.2 链路状态的基本概念 44
+2.2.1 邻接关系 47
+2.2.2 泛洪 50
+2.2.3 路由宣告消息的头部 56
+2.2.4 数据库同步 57
+2.2.5 SPF计算 58
+2.2.6 区域 68
+2.3 复习题 69
+第3章 消息类型 71
+3.1 术语比较 71
+3.2 消息封装方式 73
+3.3 消息结构 76
+3.4 消息类型 78
+3.5 LSA和LSP 80
+3.6 子网无关和子网相关功能 82
+3.6.1 子网相关功能 83
+3.6.2 子网无关功能 84
+3.7 复习题 86
+第4章 寻址、邻居发现和邻接关系 87
+4.1 路由器和区域ID 87
+4.1.1 OSPF Router-ID 87
+4.1.2 故障排除：OSPF RID冲突 89
+4.1.3 OSPF区域ID 92
+4.1.4 IS-IS System-ID和区域ID 94
+4.2 Hello协议 96
+4.2.1 OSPF Hello协议基础知识 97
+4.2.2 IS-IS Hello协议基础知识 99
+4.2.3 IS-IS动态主机名交换 106
+4.2.4 OSPF域名查询 107
+4.3 邻接关系 108
+4.3.1 OSPF邻接关系 108
+4.3.2 IS-IS邻接关系 111
+4.4 指定路由器 118
+4.4.1 OSPF指定路由器 121
+4.4.2 IS-IS指定中间系统 125
+4.5 介质类型 127
+4.5.1 OSPF网络类型 127
+4.5.2 IS-IS网络类型 132
+4.6 接口数据库 134
+4.6.1 OSPF接口数据结构 134
+4.6.2 OSPF接口状态 137
+4.6.3 IS-IS接口数据结构 141
+4.7 复习题 143
+第5章 泛洪 145
+5.1 泛洪组件 145
+5.1.1 OSPF泛洪 146
+5.1.2 IS-IS泛洪 155
+5.2 区域类型和路由器类型 163
+5.2.1 OSPF区域和路由器类型 163
+5.2.2 IS-IS区域和路由器类型 166
+5.3 度量类型 168
+5.3.1 OSPF路由度量值 168
+5.3.2 IS-IS路由度量值 171
+5.4 LSA的基本类型 173
+5.4.1 路由器LSA 173
+5.4.2 网络LSA 176
+5.4.3 网络汇总LSA 177
+5.4.4 ASBR汇总LSA 179
+5.4.5 外部LSA 180
+5.5 TLV结构的基本类型 184
+5.5.1 区域地址TLV 185
+5.5.2 IS邻居TLV 185
+5.5.3 所支持的(网络层)协议TLV 187
+5.5.4 接口(所配置的)IP地址TLV 187
+5.5.5 IP内部可达性信息TLV 188
+5.5.6 IP外部可达性信息TLV 189
+5.5.7 经过扩展的IS可达性(信息)TLV 190
+5.5.8 经过扩展的IP可达性(信息)TLV 191
+5.6 复习题 192
+第6章 链路状态数据库同步 195
+6.1 OSPF数据库同步 196
+6.1.1 数据库同步过程中所使用的OSPF协议数据包 196
+6.1.2 选项字段 200
+6.1.3 OSPF邻居数据结构 202
+6.1.4 OSPF路由器在数据库交换和泛洪期间用到的LSA列表 204
+6.1.5 管理数据库的交换：主(Master)/从(Slave)路由器机制 204
+6.1.6 OSPF邻居状态机 207
+6.1.7 OSPF排障方法1：学会解读路由器生成的日志记录及Debug输出信息 213
+6.1.8 OSPF排障方法2：学会比较(不同路由器的)LS数据库 220
+6.2 IS-IS数据库同步 225
+6.2.1 数据库同步过程中所使用的IS-IS PDU 226
+6.2.2 设置路由消息标记和序列号消息标记 229
+6.2.3 点到点网络环境中的LS数据库同步 230
+6.2.4 广播网络环境中的LS数据库同步 232
+6.2.5 IS-IS排障方法1：学会解读路由器生成的日志记录及Debug输出信息 234
+6.2.6 IS-IS排障方法2：学会比较不同IS-IS路由器的LS数据库 238
+6.3 复习题 239
+第7章 区域设计 241
+7.1 区域的可扩展性 242
+7.2 区域的可靠性 244
+7.3 OSPF区域 246
+7.3.1 骨干区域和非骨干区域 246
+7.3.2 影响OSPF区域“伸缩自如”的因素 250
+7.3.3 外部路由前缀和OSPF路由进程域的规模 253
+7.3.4 stub区域 256
+7.3.5 Totally stub区域 259
+7.3.6 Not-So-Stubby区域 260
+7.3.7 地址汇总 263
+7.3.8 虚链路 265
+7.4 IS-IS区域 271
+7.4.1 骨干区域和非骨干区域 271
+7.4.2 影响IS-IS区域“伸缩自如”的因素 275
+7.4.3 IS-IS L1区域内默认的路由选择规则 279
+7.4.4 L1/L2路由器冗余 284
+7.4.5 再谈地址汇总 285
+7.4.6 L2到L1的路由泄露 286
+7.4.7 将外部IP前缀重分发进IS-IS 291
+7.4.8 在一台路由器上配置多个AID(多区域ID) 293
+7.4.9 IS-IS虚链路 293
+7.4.10 BGP和IGP区域设计 294
+7.5 复习题 295
+第8章 伸缩自如 297
+8.1 对SPF算法的改进 297
+8.1.1 等开销多路径 298
+8.1.2 伪节点和ECMP 305
+8.1.3 增量SPF计算 309
+8.1.4 部分路由计算 311
+8.1.5 SPF延迟 312
+8.2 改进路由器泛洪LSA/LSP的机制 314
+8.2.1 控制路由器发送LSA/LSP的节奏(Transmit Pacing) 315
+8.2.2 控制路由器重传LSA/LSP的节奏(Retransmit Pacing) 318
+8.2.3 Mesh Groups 319
+8.2.4 按需电路和泛洪抑制 323
+8.3 分片 327
+8.4 过载(Overloading) 332
+8.5 复习题 336
+第9章 安全性和可靠性 339
+9.1 路由协议的漏洞 339
+9.1.1 恶意危害 340
+9.1.2 非恶意危害 342
+9.2 安全特性与可靠特性 343
+9.2.1 固有安全特性 343
+9.2.2 认证 344
+9.2.3 校验和 354
+9.2.4 优雅重启动(Graceful Restart) 356
+9.2.5 双向转发检测 369
+9.3 网络的安全性和可靠性设计 373
+9.3.1 冗余性 374
+9.3.2 路由进程域边界防护 377
+9.3.3 路由器防护 378
+9.4 与保障网络安全性和可靠性有关的运维经验 383
+9.4.1 配置管理 384
+9.4.2 变更管理 385
+9.4.3 仿真网络环境(The Network Lab) 390
+9.5 复习题 391
+第10章 可扩展能力 393
+10.1 扩展OSPF 393
+10.1.1 OSPF面临的可扩展性问题 394
+10.1.2 不透明LSA(Opaque LSA) 395
+10.1.3 不透明LSA(Opaque LSA) 398
+10.2 扩展IS-IS 400
+10.2.1 IS-IS在可扩展性方面的优势 400
+10.2.2 (本机)所支持的协议TLV 401
+10.3 路由标记 401
+10.4 复习题 403
+第11章 为支持MPLS流量工程所添加的扩展功能 405
+11.1 MPLS：概述 406
+11.1.1 标签和标签交换 406
+11.1.2 转发等价类和标签绑定 409
+11.1.3 标签(绑定信息的)分发 410
+11.1.4 MPLS头部 411
+11.2 流量工程：概述 413
+11.2.1 TE链路参数 414
+11.2.2 受约束的最短路径优先算法 416
+11.3 为支持流量工程针对OSPF做出的改进 419
+11.4 为支持流量工程而针对IS-IS做出的改进 422
+11.5 复习题 423
+第12章 为支持IPv6所添加的扩展功能 425
+12.1 IPv6：概述 425
+12.1.1 IPv6的特征和功能 427
+12.1.2 IPv6地址的格式 428
+12.1.3 IPv6地址的表示方法 430
+12.1.4 邻居发现协议 431
+12.1.5 无状态地址自动配置 433
+12.1.6 IPv6包头格式 435
+12.1.7 扩展包头 437
+12.2 OSPFv3 439
+12.2.1 OSPF执行IPv4和IPv6路由选择的兼容性 440
+12.2.2 OSPFv2和OSPFv3之间的区别 441
+12.2.3 OSPFv3 LSA 442
+12.2.4 选项字段 453
+12.2.5 OSPFv3协议数据包 454
+12.2.6 未来对OSPFv3的改进 456
+12.3 为支持IPv6路由选择针对IS-IS做出的改进 457
+12.4 复习题 459
+第13章 为支持多拓扑路由选择所做出的改进 461
+13.1 为支持多拓扑路由选择对OSPF所做的改进 462
+13.1.1 MT-OSPF运作规程 463
+13.1.2 MT-OSPF LSA 464
+13.1.3 链路排除 466
+13.2 为支持多拓扑路由选择对IS-IS所做的改进 467
+13.2.1 链路排除 467
+13.2.2 MT-ISIS TLV 469
+13.3 复习题 471
+后记 链路状态路由协议之未来 473
+
+来自 <https://book.douban.com/subject/26709271/> 
+
+
+。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://SDYTO.github.io/520.github.io/post/OSPF-he-IS-IS-xiang-jie.html">
+<meta property="og:image" content="https://app.yto88.cn/img/png/Settings1.png">
+<title>OSPF和IS-IS详解</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">OSPF和IS-IS详解</h1>
+<div class="title-right">
+    <a href="https://SDYTO.github.io/520.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/SDYTO/520.github.io/issues/10" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p><a href="https://issuu.com/xiuxiuebook/docs/ospf___is-is________________________8adbd1f9194bf3" rel="nofollow">https://issuu.com/xiuxiuebook/docs/ospf___is-is________________________8adbd1f9194bf3</a></p>
+<p>第1章 链路状态路由协议之由来 1<br>
+1.1 星际网络 1<br>
+1.2 ARPANET 4<br>
+1.3 网络工作组 10<br>
+1.4 互联网的诞生 12<br>
+1.5 ARPANET内的路由选择 16<br>
+1.6 欧洲的发展 23<br>
+1.7 独立且平等 25<br>
+1.8 总结 28<br>
+第2章 链路状态路由协议基本知识 29<br>
+2.1 矢量(vector)协议基础 29<br>
+2.1.1 矢量协议的收敛 31<br>
+2.1.2 矢量协议的共性 33<br>
+2.1.3 路由环路 34<br>
+2.2 链路状态的基本概念 44<br>
+2.2.1 邻接关系 47<br>
+2.2.2 泛洪 50<br>
+2.2.3 路由宣告消息的头部 56<br>
+2.2.4 数据库同步 57<br>
+2.2.5 SPF计算 58<br>
+2.2.6 区域 68<br>
+2.3 复习题 69<br>
+第3章 消息类型 71<br>
+3.1 术语比较 71<br>
+3.2 消息封装方式 73<br>
+3.3 消息结构 76<br>
+3.4 消息类型 78<br>
+3.5 LSA和LSP 80<br>
+3.6 子网无关和子网相关功能 82<br>
+3.6.1 子网相关功能 83<br>
+3.6.2 子网无关功能 84<br>
+3.7 复习题 86<br>
+第4章 寻址、邻居发现和邻接关系 87<br>
+4.1 路由器和区域ID 87<br>
+4.1.1 OSPF Router-ID 87<br>
+4.1.2 故障排除：OSPF RID冲突 89<br>
+4.1.3 OSPF区域ID 92<br>
+4.1.4 IS-IS System-ID和区域ID 94<br>
+4.2 Hello协议 96<br>
+4.2.1 OSPF Hello协议基础知识 97<br>
+4.2.2 IS-IS Hello协议基础知识 99<br>
+4.2.3 IS-IS动态主机名交换 106<br>
+4.2.4 OSPF域名查询 107<br>
+4.3 邻接关系 108<br>
+4.3.1 OSPF邻接关系 108<br>
+4.3.2 IS-IS邻接关系 111<br>
+4.4 指定路由器 118<br>
+4.4.1 OSPF指定路由器 121<br>
+4.4.2 IS-IS指定中间系统 125<br>
+4.5 介质类型 127<br>
+4.5.1 OSPF网络类型 127<br>
+4.5.2 IS-IS网络类型 132<br>
+4.6 接口数据库 134<br>
+4.6.1 OSPF接口数据结构 134<br>
+4.6.2 OSPF接口状态 137<br>
+4.6.3 IS-IS接口数据结构 141<br>
+4.7 复习题 143<br>
+第5章 泛洪 145<br>
+5.1 泛洪组件 145<br>
+5.1.1 OSPF泛洪 146<br>
+5.1.2 IS-IS泛洪 155<br>
+5.2 区域类型和路由器类型 163<br>
+5.2.1 OSPF区域和路由器类型 163<br>
+5.2.2 IS-IS区域和路由器类型 166<br>
+5.3 度量类型 168<br>
+5.3.1 OSPF路由度量值 168<br>
+5.3.2 IS-IS路由度量值 171<br>
+5.4 LSA的基本类型 173<br>
+5.4.1 路由器LSA 173<br>
+5.4.2 网络LSA 176<br>
+5.4.3 网络汇总LSA 177<br>
+5.4.4 ASBR汇总LSA 179<br>
+5.4.5 外部LSA 180<br>
+5.5 TLV结构的基本类型 184<br>
+5.5.1 区域地址TLV 185<br>
+5.5.2 IS邻居TLV 185<br>
+5.5.3 所支持的(网络层)协议TLV 187<br>
+5.5.4 接口(所配置的)IP地址TLV 187<br>
+5.5.5 IP内部可达性信息TLV 188<br>
+5.5.6 IP外部可达性信息TLV 189<br>
+5.5.7 经过扩展的IS可达性(信息)TLV 190<br>
+5.5.8 经过扩展的IP可达性(信息)TLV 191<br>
+5.6 复习题 192<br>
+第6章 链路状态数据库同步 195<br>
+6.1 OSPF数据库同步 196<br>
+6.1.1 数据库同步过程中所使用的OSPF协议数据包 196<br>
+6.1.2 选项字段 200<br>
+6.1.3 OSPF邻居数据结构 202<br>
+6.1.4 OSPF路由器在数据库交换和泛洪期间用到的LSA列表 204<br>
+6.1.5 管理数据库的交换：主(Master)/从(Slave)路由器机制 204<br>
+6.1.6 OSPF邻居状态机 207<br>
+6.1.7 OSPF排障方法1：学会解读路由器生成的日志记录及Debug输出信息 213<br>
+6.1.8 OSPF排障方法2：学会比较(不同路由器的)LS数据库 220<br>
+6.2 IS-IS数据库同步 225<br>
+6.2.1 数据库同步过程中所使用的IS-IS PDU 226<br>
+6.2.2 设置路由消息标记和序列号消息标记 229<br>
+6.2.3 点到点网络环境中的LS数据库同步 230<br>
+6.2.4 广播网络环境中的LS数据库同步 232<br>
+6.2.5 IS-IS排障方法1：学会解读路由器生成的日志记录及Debug输出信息 234<br>
+6.2.6 IS-IS排障方法2：学会比较不同IS-IS路由器的LS数据库 238<br>
+6.3 复习题 239<br>
+第7章 区域设计 241<br>
+7.1 区域的可扩展性 242<br>
+7.2 区域的可靠性 244<br>
+7.3 OSPF区域 246<br>
+7.3.1 骨干区域和非骨干区域 246<br>
+7.3.2 影响OSPF区域“伸缩自如”的因素 250<br>
+7.3.3 外部路由前缀和OSPF路由进程域的规模 253<br>
+7.3.4 stub区域 256<br>
+7.3.5 Totally stub区域 259<br>
+7.3.6 Not-So-Stubby区域 260<br>
+7.3.7 地址汇总 263<br>
+7.3.8 虚链路 265<br>
+7.4 IS-IS区域 271<br>
+7.4.1 骨干区域和非骨干区域 271<br>
+7.4.2 影响IS-IS区域“伸缩自如”的因素 275<br>
+7.4.3 IS-IS L1区域内默认的路由选择规则 279<br>
+7.4.4 L1/L2路由器冗余 284<br>
+7.4.5 再谈地址汇总 285<br>
+7.4.6 L2到L1的路由泄露 286<br>
+7.4.7 将外部IP前缀重分发进IS-IS 291<br>
+7.4.8 在一台路由器上配置多个AID(多区域ID) 293<br>
+7.4.9 IS-IS虚链路 293<br>
+7.4.10 BGP和IGP区域设计 294<br>
+7.5 复习题 295<br>
+第8章 伸缩自如 297<br>
+8.1 对SPF算法的改进 297<br>
+8.1.1 等开销多路径 298<br>
+8.1.2 伪节点和ECMP 305<br>
+8.1.3 增量SPF计算 309<br>
+8.1.4 部分路由计算 311<br>
+8.1.5 SPF延迟 312<br>
+8.2 改进路由器泛洪LSA/LSP的机制 314<br>
+8.2.1 控制路由器发送LSA/LSP的节奏(Transmit Pacing) 315<br>
+8.2.2 控制路由器重传LSA/LSP的节奏(Retransmit Pacing) 318<br>
+8.2.3 Mesh Groups 319<br>
+8.2.4 按需电路和泛洪抑制 323<br>
+8.3 分片 327<br>
+8.4 过载(Overloading) 332<br>
+8.5 复习题 336<br>
+第9章 安全性和可靠性 339<br>
+9.1 路由协议的漏洞 339<br>
+9.1.1 恶意危害 340<br>
+9.1.2 非恶意危害 342<br>
+9.2 安全特性与可靠特性 343<br>
+9.2.1 固有安全特性 343<br>
+9.2.2 认证 344<br>
+9.2.3 校验和 354<br>
+9.2.4 优雅重启动(Graceful Restart) 356<br>
+9.2.5 双向转发检测 369<br>
+9.3 网络的安全性和可靠性设计 373<br>
+9.3.1 冗余性 374<br>
+9.3.2 路由进程域边界防护 377<br>
+9.3.3 路由器防护 378<br>
+9.4 与保障网络安全性和可靠性有关的运维经验 383<br>
+9.4.1 配置管理 384<br>
+9.4.2 变更管理 385<br>
+9.4.3 仿真网络环境(The Network Lab) 390<br>
+9.5 复习题 391<br>
+第10章 可扩展能力 393<br>
+10.1 扩展OSPF 393<br>
+10.1.1 OSPF面临的可扩展性问题 394<br>
+10.1.2 不透明LSA(Opaque LSA) 395<br>
+10.1.3 不透明LSA(Opaque LSA) 398<br>
+10.2 扩展IS-IS 400<br>
+10.2.1 IS-IS在可扩展性方面的优势 400<br>
+10.2.2 (本机)所支持的协议TLV 401<br>
+10.3 路由标记 401<br>
+10.4 复习题 403<br>
+第11章 为支持MPLS流量工程所添加的扩展功能 405<br>
+11.1 MPLS：概述 406<br>
+11.1.1 标签和标签交换 406<br>
+11.1.2 转发等价类和标签绑定 409<br>
+11.1.3 标签(绑定信息的)分发 410<br>
+11.1.4 MPLS头部 411<br>
+11.2 流量工程：概述 413<br>
+11.2.1 TE链路参数 414<br>
+11.2.2 受约束的最短路径优先算法 416<br>
+11.3 为支持流量工程针对OSPF做出的改进 419<br>
+11.4 为支持流量工程而针对IS-IS做出的改进 422<br>
+11.5 复习题 423<br>
+第12章 为支持IPv6所添加的扩展功能 425<br>
+12.1 IPv6：概述 425<br>
+12.1.1 IPv6的特征和功能 427<br>
+12.1.2 IPv6地址的格式 428<br>
+12.1.3 IPv6地址的表示方法 430<br>
+12.1.4 邻居发现协议 431<br>
+12.1.5 无状态地址自动配置 433<br>
+12.1.6 IPv6包头格式 435<br>
+12.1.7 扩展包头 437<br>
+12.2 OSPFv3 439<br>
+12.2.1 OSPF执行IPv4和IPv6路由选择的兼容性 440<br>
+12.2.2 OSPFv2和OSPFv3之间的区别 441<br>
+12.2.3 OSPFv3 LSA 442<br>
+12.2.4 选项字段 453<br>
+12.2.5 OSPFv3协议数据包 454<br>
+12.2.6 未来对OSPFv3的改进 456<br>
+12.3 为支持IPv6路由选择针对IS-IS做出的改进 457<br>
+12.4 复习题 459<br>
+第13章 为支持多拓扑路由选择所做出的改进 461<br>
+13.1 为支持多拓扑路由选择对OSPF所做的改进 462<br>
+13.1.1 MT-OSPF运作规程 463<br>
+13.1.2 MT-OSPF LSA 464<br>
+13.1.3 链路排除 466<br>
+13.2 为支持多拓扑路由选择对IS-IS所做的改进 467<br>
+13.2.1 链路排除 467<br>
+13.2.2 MT-ISIS TLV 469<br>
+13.3 复习题 471<br>
+后记 链路状态路由协议之未来 473</p>
+<p>来自 <a href="https://book.douban.com/subject/26709271/" rel="nofollow">https://book.douban.com/subject/26709271/</a></p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://SDYTO.github.io/520.github.io">分享快乐</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","SDYTO/520.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+
+
+</html>
