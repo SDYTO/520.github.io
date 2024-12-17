@@ -1,5 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>分享快乐</title><link>https://SDYTO.github.io/520.github.io</link><description>分享快乐</description><copyright>分享快乐</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://app.yto88.cn/img/png/Settings1.png</url><title>avatar</title><link>https://SDYTO.github.io/520.github.io</link></image><lastBuildDate>Mon, 16 Dec 2024 06:54:40 +0000</lastBuildDate><managingEditor>分享快乐</managingEditor><ttl>60</ttl><webMaster>分享快乐</webMaster><item><title>使用Github Action 构建docker镜像-下载</title><link>https://SDYTO.github.io/520.github.io/post/shi-yong-Github%20Action%20-gou-jian-docker-jing-xiang---xia-zai.html</link><description>📢 第二集来啦！&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>分享快乐</title><link>https://SDYTO.github.io/520.github.io</link><description>分享快乐</description><copyright>分享快乐</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://app.yto88.cn/img/png/Settings1.png</url><title>avatar</title><link>https://SDYTO.github.io/520.github.io</link></image><lastBuildDate>Tue, 17 Dec 2024 04:49:40 +0000</lastBuildDate><managingEditor>分享快乐</managingEditor><ttl>60</ttl><webMaster>分享快乐</webMaster><item><title>CM360部署Docker-typecho</title><link>https://SDYTO.github.io/520.github.io/post/CM360-bu-shu-Docker-typecho.html</link><description>部署命令如下&#13;
+&#13;
+docker run -d \&#13;
+--name=typecho-blog \&#13;
+--restart always \&#13;
+--mount type=tmpfs,destination=/tmp \&#13;
+-v /volume1/docker/typecho:/data \&#13;
+-e PHP_TZ=Asia/Shanghai \&#13;
+-e PHP_MAX_EXECUTION_TIME=600 \&#13;
+-p 90:80 \&#13;
+80x86/typecho:latest&#13;
+。</description><guid isPermaLink="true">https://SDYTO.github.io/520.github.io/post/CM360-bu-shu-Docker-typecho.html</guid><pubDate>Tue, 17 Dec 2024 04:49:19 +0000</pubDate></item><item><title>使用Github Action 构建docker镜像-下载</title><link>https://SDYTO.github.io/520.github.io/post/shi-yong-Github%20Action%20-gou-jian-docker-jing-xiang---xia-zai.html</link><description>📢 第二集来啦！&#13;
 1、要有一个github账号 https://github.com&#13;
 2、fork 我的项目&#13;
 https://github.com/wukongdaily/DockerTarBuilder&#13;
