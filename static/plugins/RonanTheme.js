@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         html {    
-            background: url('https://blog.freeblock.cn/background.webp') no-repeat center center fixed;
+            background: url('https://preview.cloud.189.cn/image/imageAction?param=BD2D1BE3D3DDDC73E4143306C4E24A21D0D7B39566A84FF566CA4F48BA9177498A95650DF26A8E71A76F3EA4AD5B0CF3A3ED3A09D286FA76B05C1D09DBC2CD2BCB4ABE1D4996360164E2D9C878ADF38F42DDAB0FEFB7E66A8A1624BEADB74C632818E24F39D042643045C8F8C5C1D42C') no-repeat center center fixed;
             background-size: cover;
         }
 
